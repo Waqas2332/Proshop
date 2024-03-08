@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 
 import connectDB from "./config/db.js";
+import { notFound, errorHandler } from "./middlewares/errorMiddleware.js";
 import productsRoutes from "./routes/productRoutes.js";
 
 dotenv.config();
@@ -19,6 +20,8 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/products", productsRoutes);
+app.use(notFound);
+app.use(errorHandler);
 
 app.listen(port, () => {
   console.log("Server is running");
